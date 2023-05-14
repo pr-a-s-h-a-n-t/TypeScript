@@ -1,23 +1,60 @@
-import { useState } from "react";
+import React, { useState } from "react";
 
-import "./App.css";
-import Array from "./component/array";
+const App = () => {
+  const [count, setCount] = useState(0);
 
-interface Data {
-  nameInput: string;
-  ageInput: string;
-}
+  const incrementBtn = () => {
+    setCount(count + 1);
+  };
 
-function App() {
-  // const [data, setData] = useState<Data>({
-  //   nameInput: "asdasdasdasdasdasd",
-  //   ageInput: "",
-  // });
-  return;
-  <div>
-    <Array />
-    <h2>{data.nameInput}</h2>
-  </div>;
-}
+  const decrementBtn = () => {
+    setCount(count - 1);
+  };
+
+  return (
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+      <CountIndicator count={count} />
+      <CountButton incrementBtn={incrementBtn} decrementBtn={decrementBtn} />
+    </div>
+  );
+};
 
 export default App;
+
+interface CountIndicatorProps {
+  count: number;
+}
+
+const CountIndicator: React.FC<CountIndicatorProps> = ({ count }) => (
+  <h1>{count}</h1>
+);
+
+interface CountButtonProps {
+  incrementBtn: () => void;
+  decrementBtn: () => void;
+}
+
+const CountButton: React.FC<CountButtonProps> = ({
+  incrementBtn,
+  decrementBtn,
+}) => {
+  return (
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "space-between",
+        width: "100px",
+      }}
+    >
+      <button onClick={incrementBtn}>+</button>
+      <button onClick={decrementBtn}>-</button>
+    </div>
+  );
+};
